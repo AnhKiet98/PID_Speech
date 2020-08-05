@@ -6,11 +6,11 @@ double alpha1,beta1,gama1,Kp1,Ki1,Kd1;
 double Output1, LastOutput1;
 void setup() {
   // put your setup code here, to run once:
- pinMode(3,INPUT_PULLUP);//chan ngat encoder
- pinMode(8,INPUT_PULLUP);//chan doc encoder
+ pinMode(20,INPUT_PULLUP);//chan ngat encoder
+ pinMode(43,INPUT_PULLUP);//chan doc encoder
  pinMode(6,OUTPUT);//chan pwm
- pinMode(12,OUTPUT);//chan DIR1
- pinMode(13,OUTPUT);//chan DIR2
+ pinMode(31,OUTPUT);//chan DIR1
+ pinMode(33,OUTPUT);//chan DIR2
 tocdodat1=30.0,tocdo1=0.0, pre_tocdo1 = 0.0;
  E1=0; E1_1=0; E2_1=0;
  Output1=0;LastOutput1=0;
@@ -25,11 +25,11 @@ tocdodat1=30.0,tocdo1=0.0, pre_tocdo1 = 0.0;
 void loop() {
   // put your main code here, to run repeatedly:
   int i;
-  //Serial.println(tocdo);  
+  Serial.println(tocdo1);  
 }
 void Demxung1()
 {
-  if(digitalRead(8)==LOW)
+  if(digitalRead(43)==LOW)
      xung1++;
    else
      xung1--;
@@ -57,13 +57,13 @@ void Demxung1()
    if(Output1>0)
    {
     analogWrite(6,Output1);
-    digitalWrite(12,LOW);
-    digitalWrite(13,HIGH);;
+    digitalWrite(31,LOW);
+    digitalWrite(33,HIGH);
     }
     else
      {
       analogWrite(6,abs(Output1));
-      digitalWrite(12,HIGH);
-      digitalWrite(13,LOW);
+      digitalWrite(31,HIGH);
+      digitalWrite(33,LOW);
       }
   }

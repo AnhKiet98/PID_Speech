@@ -11,12 +11,13 @@ void setup() {
   pinMode(5,OUTPUT);//chan pwm
   pinMode(27,OUTPUT);//chan DIR1
   pinMode(29,OUTPUT);//chan DIR2
-tocdodat2=-30.0,tocdo2=0.00, pre_tocdo2 = 0.0;
+tocdodat2=30.0,tocdo2=0.00, pre_tocdo2 = 0.0;
  E2=0; E1_2=0; E2_2=0;
  Output2=0;LastOutput2=0;
  T=0.1;
 // Kp=3550.0,Kd=17.0;Ki=57.0;
-  Kp2=99;Kd2=13;Ki2=12;
+//  Kp2=99;Kd2=13;Ki2=12;
+Kp2=75;Kd2=11.0;Ki2=14;
  Serial.begin(9600);
  attachInterrupt(3,Demxung2,FALLING);
  Timer1.initialize(100000);
@@ -29,7 +30,7 @@ void loop() {
 }
 void Demxung2()
 {
-  if(digitalRead(43)==HIGH)
+  if(digitalRead(43)==LOW)
      xung2++;
    else
      xung2--;

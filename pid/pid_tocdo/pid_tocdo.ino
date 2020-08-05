@@ -6,19 +6,19 @@ double alpha1,beta1,gama1,Kp1,Ki1,Kd1,alpha2,beta2,gama2,Kp2,Ki2,Kd2;
 double Output1, LastOutput1,Output2, LastOutput2;
 void setup() {
   // put your setup code here, to run once:
- pinMode(3,INPUT_PULLUP);//chan ngat encoder
- pinMode(8,INPUT_PULLUP);//chan doc encoder
- pinMode(6,OUTPUT);//chan pwm
- pinMode(12,OUTPUT);//chan DIR1
- pinMode(13,OUTPUT);//chan DIR2
+ pinMode(21,INPUT_PULLUP);//chan ngat encoder
+ pinMode(45,INPUT_PULLUP);//chan doc encoder
+ pinMode(4,OUTPUT);//chan pwm
+ pinMode(23,OUTPUT);//chan DIR1
+ pinMode(25,OUTPUT);//chan DIR2
 
- pinMode(2,INPUT_PULLUP);//chan ngat encoder
- pinMode(4,INPUT_PULLUP);//chan doc encoder
+ pinMode(3,INPUT_PULLUP);//chan ngat encoder
+ pinMode(41,INPUT_PULLUP);//chan doc encoder
  pinMode(5,OUTPUT);//chan pwm
- pinMode(7,OUTPUT);//chan DIR1
- pinMode(11,OUTPUT);//chan DIR2
-tocdodat1=30.0,tocdo1=0.0, pre_tocdo1 = 0.0;
-tocdodat2=30.0,tocdo2=0.0, pre_tocdo2 = 0.0;
+ pinMode(27,OUTPUT);//chan DIR1
+ pinMode(29,OUTPUT);//chan DIR2
+tocdodat1=10.0,tocdo1=0.0, pre_tocdo1 = 0.0;
+tocdodat2=10.0,tocdo2=0.0, pre_tocdo2 = 0.0;
  E1=0; E1_1=0; E2_1=0;
  E2=0; E1_2=0; E2_2=0;
  Output1=0;LastOutput1=0;
@@ -28,26 +28,26 @@ tocdodat2=30.0,tocdo2=0.0, pre_tocdo2 = 0.0;
   Kp1=30,5;Kd1=0.0;Ki1=0.001;
   Kp2=92,5;Kd2=0.0;Ki2=0.001;
  Serial.begin(9600);
- attachInterrupt(1,Demxung1,FALLING);
- attachInterrupt(0,Demxung2,FALLING);
+ attachInterrupt(0,Demxung1,FALLING);
+ attachInterrupt(1,Demxung2,FALLING);
  Timer1.initialize(100000);
  Timer1.attachInterrupt(PID);
 }
 void loop() {
   // put your main code here, to run repeatedly:
   int i;
-  //Serial.println(tocdo);  
+  Serial.println(tocdo2);  
 }
 void Demxung1()
 {
-  if(digitalRead(8)==LOW)
+  if(digitalRead(39)==LOW)
      xung1++;
    else
      xung1--;
  }
  void Demxung2()
 {
-  if(digitalRead(4)==LOW)
+  if(digitalRead(41)==LOW)
      xung2++;
    else
      xung2--;
@@ -93,26 +93,26 @@ void Demxung1()
      Output2=-255;
   if(Output1>0)
    {
-    analogWrite(6,Output1);
-    digitalWrite(12,LOW);
-    digitalWrite(13,HIGH);;
+    analogWrite(4,Output1);
+    digitalWrite(23,LOW);
+    digitalWrite(25,HIGH);;
     }
     else
      {
-      analogWrite(6,abs(Output1));
-      digitalWrite(12,HIGH);
-      digitalWrite(13,LOW);
+      analogWrite(4,abs(Output1));
+      digitalWrite(23,HIGH);
+      digitalWrite(25,LOW);
       }
    if(Output2>0)
    {
     analogWrite(5,Output2);
-    digitalWrite(7,LOW);
-    digitalWrite(11,HIGH);;
+    digitalWrite(27,LOW);
+    digitalWrite(29,HIGH);;
     }
     else
      {
       analogWrite(5,Output2);
-      digitalWrite(7,LOW);
-      digitalWrite(11,LOW);
+      digitalWrite(27,LOW);
+      digitalWrite(29,LOW);
       }
   }

@@ -6,19 +6,20 @@ double alpha2,beta2,gama2,Kp2,Ki2,Kd2;
 double Output2, LastOutput2;
 void setup() {
   // put your setup code here, to run once:
-  pinMode(20,INPUT_PULLUP);//chan ngat encoder
-  pinMode(43,INPUT_PULLUP);//chan doc encoder
-  pinMode(5,OUTPUT);//chan pwm
-  pinMode(27,OUTPUT);//chan DIR1
-  pinMode(29,OUTPUT);//chan DIR2
-tocdodat2=-30.0,tocdo2=0.00, pre_tocdo2 = 0.0;
+  pinMode(3,INPUT_PULLUP);//chan ngat encoder
+  pinMode(41,INPUT_PULLUP);//chan doc encoder
+  pinMode(7,OUTPUT);//chan pwm
+  pinMode(35,OUTPUT);//chan DIR1
+  pinMode(37,OUTPUT);//chan DIR2
+tocdodat2=30.0,tocdo2=0.00, pre_tocdo2 = 0.0;
  E2=0; E1_2=0; E2_2=0;
  Output2=0;LastOutput2=0;
  T=0.1;
 // Kp=3550.0,Kd=17.0;Ki=57.0;
-  Kp2=99;Kd2=13;Ki2=12;
+//  Kp2=99;Kd2=13;Ki2=12;
+Kp2=77;Kd2=0;Ki2=0;
  Serial.begin(9600);
- attachInterrupt(3,Demxung2,FALLING);
+ attachInterrupt(1,Demxung2,FALLING);
  Timer1.initialize(100000);
  Timer1.attachInterrupt(PID);
 }
@@ -29,7 +30,7 @@ void loop() {
 }
 void Demxung2()
 {
-  if(digitalRead(43)==HIGH)
+  if(digitalRead(41)==LOW)
      xung2++;
    else
      xung2--;
@@ -56,14 +57,14 @@ void Demxung2()
      Output2=-255;
    if(Output2>0)
    {
-    analogWrite(5,Output2);
-    digitalWrite(27,LOW);
-    digitalWrite(29,HIGH);;
+    analogWrite(7,Output2);
+    digitalWrite(35,LOW);
+    digitalWrite(37,HIGH);;
     }
     else
      {
-      analogWrite(5,abs(Output2));
-      digitalWrite(27,HIGH);
-      digitalWrite(29,LOW);
+      analogWrite(7,abs(Output2));
+      digitalWrite(35,HIGH);
+      digitalWrite(37,LOW);
       }
   }

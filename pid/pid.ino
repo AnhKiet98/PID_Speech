@@ -10,7 +10,7 @@ void setup() {
  pinMode(4,INPUT_PULLUP);//chan doc encoder
  pinMode(5,OUTPUT);//chan pwm
  pinMode(7,OUTPUT);//chan DIR1
- pinMode(8,OUTPUT);//chan DIR2
+ pinMode(11,OUTPUT);//chan DIR2
 vitridat=180,vitri=0;
  E=0; E1=0; E2=0;
  Output=0;LastOutput=0;
@@ -54,18 +54,18 @@ void Demxung()
    {
     analogWrite(5,Output);
     digitalWrite(7,HIGH);
-    digitalWrite(8,LOW);
+    digitalWrite(11,LOW);
     }
     else if(Output<0)
     {
       analogWrite(5,abs(Output));
       digitalWrite(7,LOW);
-      digitalWrite(8,HIGH);
+      digitalWrite(11,HIGH);
      }
      else
      {
       analogWrite(5,0);
       digitalWrite(7,LOW);
-      digitalWrite(8,LOW);
+      digitalWrite(11,LOW);
       }
   }
