@@ -1,9 +1,9 @@
 #include<TimerOne.h>
-double T,xung2;
-double tocdo2,tocdodat2, pre_tocdo2, LPF_heso=0.08;
-double E2,E1_2,E2_2;
-double alpha2,beta2,gama2,Kp2,Ki2,Kd2;
-double Output2, LastOutput2;
+double T,xung4;
+double tocdo4,tocdodat4, pre_tocdo4, LPF_heso=0.08;
+double E4,E4_1,E4_2;
+double alpha4,beta4,gama4,Kp4,Ki4,Kd4;
+double Output4, LastOutput4;
 void setup() {
   // put your setup code here, to run once:
   pinMode(3,INPUT_PULLUP);//chan ngat encoder
@@ -11,59 +11,59 @@ void setup() {
   pinMode(7,OUTPUT);//chan pwm
   pinMode(35,OUTPUT);//chan DIR1
   pinMode(37,OUTPUT);//chan DIR2
-tocdodat2=30.0,tocdo2=0.00, pre_tocdo2 = 0.0;
- E2=0; E1_2=0; E2_2=0;
- Output2=0;LastOutput2=0;
+tocdodat4=30.0,tocdo4=0.00, pre_tocdo4 = 0.0;
+ E4=0; E4_1=0; E4_2=0;
+ Output4=0;LastOutput4=0;
  T=0.1;
 // Kp=3550.0,Kd=17.0;Ki=57.0;
 //  Kp2=99;Kd2=13;Ki2=12;
-Kp2=77;Kd2=0;Ki2=0;
+Kp4=52.0;Kd4=10;Ki4=16;
  Serial.begin(9600);
- attachInterrupt(1,Demxung2,FALLING);
+ attachInterrupt(1,Demxung4,FALLING);
  Timer1.initialize(100000);
  Timer1.attachInterrupt(PID);
 }
 void loop() {
   // put your main code here, to run repeatedly:
   int i;
-  Serial.println(tocdo2);  
+  Serial.println(tocdo4);  
 }
-void Demxung2()
+void Demxung4()
 {
-  if(digitalRead(41)==LOW)
-     xung2++;
+  if(digitalRead(41)==HIGH)
+     xung4++;
    else
-     xung2--;
+     xung4--;
  }
  void PID()
  {
  // vitri=((xung*360)/1300);
- tocdo2 = (xung2/628)*(1/T)*60;
- tocdo2 = tocdo2 * LPF_heso + pre_tocdo2*(1-LPF_heso);
- pre_tocdo2 = tocdo2;
+ tocdo4 = (xung4/628)*(1/T)*60;
+ tocdo4 = tocdo4 * LPF_heso + pre_tocdo4*(1-LPF_heso);
+ pre_tocdo4 = tocdo4;
   //E=vitridat-vitri;
-  xung2=0;
-  E2=tocdodat2-tocdo2;
-  alpha2= 2*T*Kp2 + Ki2*T*T+ 2*Kd2;
-  beta2=T*T*Ki2-4*Kd2-2*T*Kp2;
-  gama2=2*Kd2;
-  Output2=(alpha2*E2 + beta2*E1_2 + gama2*E2_2 +2*T*LastOutput2/(2*T));
-  LastOutput2=Output2;
-  E2_2=E1_2;
-  E1_2=E2;
-  if(Output2 > 255)
-     Output2=255;
-  if(Output2 < -255)
-     Output2=-255;
-   if(Output2>0)
+  xung4=0;
+  E4=tocdodat4-tocdo4;
+  alpha4= 2*T*Kp4 + Ki4*T*T+ 2*Kd4;
+  beta4=T*T*Ki4-4*Kd4-2*T*Kp4;
+  gama4=2*Kd4;
+  Output4=(alpha4*E4 + beta4*E4_1 + gama4*E4_2 +2*T*LastOutput4/(2*T));
+  LastOutput4=Output4;
+  E4_2=E4_1;
+  E4_1=E4;
+  if(Output4 > 255)
+     Output4=255;
+  if(Output4 < -255)
+     Output4=-255;
+   if(Output4>0)
    {
-    analogWrite(7,Output2);
+    analogWrite(7,Output4);
     digitalWrite(35,LOW);
     digitalWrite(37,HIGH);;
     }
     else
      {
-      analogWrite(7,abs(Output2));
+      analogWrite(7,abs(Output4));
       digitalWrite(35,HIGH);
       digitalWrite(37,LOW);
       }
